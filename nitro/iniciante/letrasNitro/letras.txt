@@ -1,0 +1,122 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+This includes the necessary libraries for input and output (iostream) and for formatting the output (iomanip).
+
+int main(){
+  float counterPal = 0, checkCounter = 0;
+  char pal;
+  int i;
+  string phrase;
+
+Here, we have the main function, where the variables are declared.
+
+counterPal is a variable that will be used to keep track of the number of occurances of the user-specified letter in the phrase.
+checkCounter is a variable that will be used to store the final percentage of occurances.
+pal is a variable that will store the user-specified letter.
+phrase is a variable that will store the user-specified phrase.
+
+  cin >> pal;
+  cin.ignore();
+  getline(cin, phrase);
+
+This code is used to get the user-specified letter and phrase from the user. 
+The cin >> pal; reads the first input as character (the letter) and the getline(cin, phrase); 
+reads the rest of the line as string (the phrase)
+
+  //counting unique words and letter occurance
+  string word = "";
+  int wordCount = 0;
+  bool found = false;
+
+We declare the word string, a wordCount integer, and a boolean found to keep track of if a letter was already found in the word.
+
+  for (int i = 0; i < phrase.length(); i++) {
+    if (phrase[i] != ' ') {
+      word += phrase[i];
+
+This for loop is used to iterate over each character in the phrase. 
+The variable i is initialized to zero, and as long as i is less than the length of the phrase, the loop will continue. 
+Within the loop, we check if the current character in the phrase is a space if (phrase[i] != ' '), 
+if its not we add the character to the word variable
+
+      if (phrase[i] == pal && !found) {
+        counterPal++;
+        found = true;
+      }
+
+This if statement check if the current character is the letter the user specified and if found is false. 
+If that is the case, it increments the counterPal variable and set found to true, 
+so that way next letter of the same word doesn't get counted.
+
+    } else {
+        if (word != "") {
+            wordCount++;
+            found = false;
+            word = "";
+        }
+    }
+
+]If the current character is a space and the word is not empty, 
+it increments the wordCount and set found to false, so that way next word can be counted.
+
+  if (word != "") {
+    wordCount++;
+  }
+
+This if statement check if the word is not empty, if so, it increments the wordCount
+
+  checkCounter = (counterPal / (float)wordCount) * 100;
+  cout << setprecision(1) << fixed;
+  cout << checkCounter;
+
+Certainly! It calculates the percentage of occurrence by dividing the number of occurances of the user-specified letter (stored in counterPal) by the total number of unique words in the phrase (stored in wordCount) and then multiplying the result by 100.
+
+cout << setprecision(1) << fixed; is used to format the output to display only 1 decimal place
+cout << checkCounter; outputs the percentage of occurances calculated
+
+================================================================================================================================
+
+why     if (phrase[i] != ' ') {
+      word += phrase[i];
+
+if (phrase[i] != ' ') { word += phrase[i];
+
+This if statement checks if the current character of the phrase is not a space. If it's not, it's adding that character to the word variable.
+
+The idea is that for each word in the phrase, the loop goes through each character of the word and if the current character is not a space, it adds that character to the word variable. This way, the word variable will eventually contain the entire word. When it reaches a space, it checks if the word variable is not empty, in that case it increments the wordCount variable and resets the word variable to an empty string, so that way the loop is ready to store the next word. This way the program is keeping track of each word in the phrase.
+
+
+
+
+rafael rodrigues
+why         else {
+            if(word != ""){
+                wordCount++;
+                found = false;
+                word = "";
+            }
+This else block is connected to the if statement if (phrase[i] != ' '), it's executed when the current character of the phrase is a space.
+
+The statement if(word != "") is used to check if word variable is not empty, if so, it means that the loop has completed scanning a word.
+
+wordCount++; increments the wordCount variable, since we have found one more word in the phrase.
+found = false; resets the found variable back to false so that way next word can be counted if it has the letter that the user is searching for
+word = ""; reset the word variable back to empty string so that way the loop is ready to store the next word.
+This way, the program is keeping track of the total number of unique words in the phrase and reseting the variables for next iteration.
+
+
+
+
+rafael rodrigues
+why     if(word != ""){
+        wordCount++;
+    }
+if(word != ""){wordCount++; }
+
+This if statement is executed after the end of the loop and it checks if the word variable is not empty. If it's not, it means that the loop has completed scanning the last word of the phrase and that word hasn't been counted because it didn't have a space after it.
+
+wordCount++; increments the wordCount variable by one, so that way the last word in the phrase gets counted. This way, the program is able to account for the last word in the phrase even if it doesn't have a space after it.
+
+This way, the program is ensuring that it correctly counts the total number of unique words in the phrase, even if the last word in the phrase doesn't have a space after it.
